@@ -54,7 +54,7 @@ export default function Index() {
       });
       setPlayer(player);
 
-      const gain = new Tone.Gain(0.2);
+      const gain = new Tone.Gain(0.05);
       player.connect(gain);
 
       const newPitchShift = new Tone.PitchShift();
@@ -116,6 +116,7 @@ export default function Index() {
             className="bg-blue-500 text-white px-4 py-2 rounded mb-2"
             onClick={() => {
               Tone.start();
+              player?.start();
               randomlyChoose();
             }}
           >
@@ -229,6 +230,18 @@ export default function Index() {
                 .map((line, i) => (
                   <div key={i}>{line}</div>
                 ))}
+              <button
+                className="bg-red-500 text-white px-2 py-1 rounded ml-2"
+                onClick={() =>
+                  setRecords((prev) => {
+                    const ret = [...prev];
+                    ret.splice(index, 1);
+                    return ret;
+                  })
+                }
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>

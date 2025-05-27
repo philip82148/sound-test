@@ -31,7 +31,10 @@ export default function Index() {
 
   useEffect(() => {
     if (material === "piano") {
-      const player = new Tone.Player("/C4.ogg");
+      const player =
+        process.env.NODE_ENV === "development"
+          ? new Tone.Player("/C4.ogg")
+          : new Tone.Player("/sound-test/C4.ogg");
       player.loop = true;
       Tone.loaded().then(() => {
         player.start();
